@@ -24,3 +24,5 @@ apply:
   when: manual
   script:
     - terraform apply -auto-approve tfplan
+
+#testing scripts
