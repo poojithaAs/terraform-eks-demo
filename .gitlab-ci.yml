@@ -1,0 +1,26 @@
+stages:
+  - validate
+  - plan
+  - apply
+
+image: hashicorp/terraform:1.6.2
+
+validate:
+  stage: validate
+  script:
+    - terraform init -backend=false
+    - terraform validate
+
+plan:
+  stage: plan
+  script:
+    - terraform init
+    - terraform plan -out=tfplan
+  artifacts:
+    paths: [tfplan]
+
+apply:
+  stage: apply
+  when: manual
+  script:
+    - terraform apply -auto-approve tfplan
